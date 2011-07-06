@@ -16,6 +16,10 @@
 ;;The worker verifies that it go the JOB, then submits a DELETE
 ;;request to the Cloudq Server. This changes the status of the JOB
 ;;from :reserved to :deleted.
+(defn verify-job-received
+  [queue-name id]
+  )
+
 (defn delete-job
   [queue-name]
   )
