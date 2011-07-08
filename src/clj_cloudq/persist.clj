@@ -15,7 +15,8 @@
     (mongo! :db (:db config) :host (:host config) :port (Integer. (:port config))) ;; Setup global mongo.
     (authenticate (:user config) (:pass config))))
 
+(defn jobs-collection []
+  (:collection config/mongodb))
 
-
-
-
+(defn find-and-reserve-job [queue-name]
+  (fetch-and-modify (jobs-collection) :where {:queue queue-name :workflow_state "queued"} :update {:workflow_state "reserved"} :return-new? true))
