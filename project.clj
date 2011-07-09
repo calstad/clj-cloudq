@@ -6,7 +6,9 @@
                  [compojure "0.6.4"]                 
                  [congomongo "0.1.5-SNAPSHOT"]
                  [ring-json-params "0.1.3"]
-                 [clj-json "0.3.2"]]
+                 [clj-json "0.3.2"]
+                 [ring/ring-jetty-adapter "0.3.9"]]
   :dev-dependencies [[swank-clojure "1.4.0-SNAPSHOT"]
                      [lein-ring "0.4.5"]]
-  :ring {:handler clj-cloudq.core/app})
+  :main clj-cloudq.core
+  :repositories {"sonatype-oss-public" "https://oss.sonatype.org/content/groups/public/"})
