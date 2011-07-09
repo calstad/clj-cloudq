@@ -1,0 +1,9 @@
+# clj-cloudq
+
+A clojure implementation of the cloudq server.
+
+## License
+
+Copyright (C) 2011 FIXME
+
+Distributed under the Eclipse Public License, the same as Clojure.
