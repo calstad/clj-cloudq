@@ -1,7 +1,14 @@
 (ns clj-cloudq.queue
   (:import [org.bson.types ObjectId])
   (:use somnium.congomongo)
-  (:require [clj-cloudq.config :as config]))
+  (:require [clj-cloudq.config :as conf]))
+
+(defn get-config []
+  "Returns the config defined in the MONGOHQ_URL environment variable or the config namespace if the MongoHQ url does not exiest."
+  (let [mongo-url (get (System/getenv) "MONGOHQ_URL")]
+    (if mongo-url
+      (split-mongo-url mongo-url)
+      (conf/mongodb))))
 
 (defn split-mongo-url [url]
   "Parses mongodb url from heroku, eg. mongodb://user:pass@localhost:1234/db"
@@ -10,9 +17,8 @@
       (zipmap [:match :user :pass :host :port :db] (re-groups matcher)))))
 
 (defn connect []
-  "Connects to the MongoDB defined in the MONGOHQ_URL environment variable."
-  (let [mongo-url (get (System/getenv) "MONGOHQ_URL")
-        config    (split-mongo-url mongo-url)]
+  "Connects to MongoDB"
+  (let [config (get-config)]
     (mongo! :db (:db config) :host (:host config) :port (Integer. (:port config)))
     (authenticate (:user config) (:pass config))))
 
