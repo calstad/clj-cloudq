@@ -11,14 +11,17 @@
 
 (defroutes main-routes
 
+  (GET "/" []
+       "Hello from CloudQ")
+  
 ;;POST /:queue
 ;;When a client requests a POST for a queue name the server needs to
 ;;first make sure that JOB is valid, if the job is not valid then
 ;;return a response message. For our ruby and node implementations we
 ;;use MongoDb and create a collection called jobs and the documents in
-;;the jobs collection contain an attribute called :queue
-  (POST "/:queue-name" [queue-name klass args]
-        (q/add-job queue-name {:klass klass :args args})
+  ;;the jobs collection contain an attribute called :queue
+  (POST "/:queue-name" [queue-name job]
+        (q/add-job queue-name job)
         (json-response {:status "success"}))
   
 ;;GET /:queue
