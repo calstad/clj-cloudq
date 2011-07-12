@@ -31,11 +31,9 @@
 ;;client with the JOB. If there are no JOBS in a new status for that
 ;;queue then the server should return an empty response.
   (GET "/:queue-name" [queue-name]
-       (let [job (q/get-job queue-name)
-             id (str (:_id job))]
+       (let [job (q/get-job queue-name)]
          (json-response job)))
 
-  
 ;;DELETE /:queue/:id
 ;;When a client requests a DELETE JOB request, the server needs to
 ;;locate the JOB and modify the status of the job to :deleted, and
