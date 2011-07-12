@@ -34,7 +34,7 @@
 (defn get-job
   [queue-name]
   (let [job (fetch-one queue-name :where {:status {:$ne "reserved"}})]
-    (update! queue-name job (merge job {:status "reserved"}))
+    (when job (update! queue-name job (merge job {:status "reserved"})))
     job))
 
 ;;The worker verifies that it go the JOB, then submits a DELETE
