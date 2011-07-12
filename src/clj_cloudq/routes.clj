@@ -33,10 +33,7 @@
   (GET "/:queue-name" [queue-name]
        (let [job (q/get-job queue-name)
              id (str (:_id job))]
-         (json-response {:klass (:klass job)
-                         :id id
-                         :args (:args job)})))
-        
+         (json-response job)))
 
   
 ;;DELETE /:queue/:id
