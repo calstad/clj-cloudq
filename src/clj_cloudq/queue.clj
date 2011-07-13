@@ -27,8 +27,11 @@
 (defn get-job
   [queue-name]
   (let [job (fetch-one queue-name :where {:status {:$ne "reserved"}})]
-    (update! queue-name job (merge job {:status "reserved"}))
-    job))
+    (if job
+      (do
+        (update! queue-name job (merge job {:status "reserved"}))
+        job)
+      nil)))
 
 ;;The worker verifies that it go the JOB, then submits a DELETE
 ;;request to the Cloudq Server. This changes the status of the JOB

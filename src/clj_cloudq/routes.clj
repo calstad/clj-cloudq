@@ -34,7 +34,6 @@
                          :id id
                          :args (:args job)})))
         
-
   
 ;;DELETE /:queue/:id
 ;;When a client requests a DELETE JOB request, the server needs to
