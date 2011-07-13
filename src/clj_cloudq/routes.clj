@@ -33,7 +33,9 @@
   (GET "/:queue-name" [queue-name]
        (let [job (q/get-job queue-name)
              id (str (:_id job))]
-         (json-response (merge job {:id id}))))
+         (if job
+           (json-response (merge (dissoc job :_id) {:id id}))
+           (json-response {:status "empty"}))))
           
 ;;DELETE /:queue/:id
 ;;When a client requests a DELETE JOB request, the server needs to
