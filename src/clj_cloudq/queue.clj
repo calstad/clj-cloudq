@@ -35,7 +35,6 @@
   [queue-name]
   (let [job (fetch-one queue-name
                        :where {:status {:$ne "reserved"}})]
-    (println job)
     (if job
       (do
         (update! queue-name job (merge job {:status "reserved"}))
